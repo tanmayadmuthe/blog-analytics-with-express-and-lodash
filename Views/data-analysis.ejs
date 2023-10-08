@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog Analytics</title>
+    <style>
+        body {
+            background: rgba(228, 233, 233, 0.767);
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Light mode styles */
+        body.light-mode {
+            color: #333;
+        }
+
+        /* Dark mode styles */
+        body.dark-mode {
+            background: #333;
+            color: #fff;
+        }
+
+        /* Dark mode button styles */
+        #dark-mode-button {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: #333;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+
+        h1 {
+            text-align: center;
+            padding: 20px 0;
+        }
+
+        #analytics {
+            background: #333; /* Dark mode background color */
+            color: #fff; /* Dark mode text color */
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px auto;
+            max-width: 600px;
+            text-align: center;
+        }
+
+        #analytics p {
+            margin: 10px 0;
+            font-size: 18px;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        li {
+            border: 2px solid #ccc;
+            border-radius: 10px;
+            font-size: 20px;
+            margin: 10px 0;
+            padding: 20px;
+        }
+
+        li a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        li a:hover {
+            text-decoration: underline;
+        }
+
+        li img {
+            margin-top: 10px;
+            border-radius: 8px;
+            width: 100px;
+            height: 100px;
+        }
+    </style>
+</head>
+<body class="light-mode">
+    <h1>Blog Analytics</h1>
+    <!-- Dark mode toggle button -->
+    <button id="dark-mode-button">Dark Mode</button>
+    <ul>
+        <% blogData.forEach((blog, i) => { %>
+        <li>
+            <a href="<%= blog.link %>"><%= i + 1 %>. <%= blog.title %></a>
+            <br>
+            <img src="<%= blog.image_url %>" alt="<%= blog.title %>" width="100" height="100">
+        </li>
+        <% }); %>
+    </ul>
+    <script>
+        // JavaScript code for dark mode toggle
+        const body = document.body;
+        const darkModeButton = document.getElementById('dark-mode-button');
+        let isDarkMode = false;
+
+        darkModeButton.addEventListener('click', () => {
+            isDarkMode = !isDarkMode;
+            if (isDarkMode) {
+                body.classList.add('dark-mode');
+                document.getElementById('analytics').style.background = '#333';
+                document.getElementById('analytics').style.color = '#fff';
+                darkModeButton.textContent = 'Light Mode';
+            } else {
+                body.classList.remove('dark-mode');
+                document.getElementById('analytics').style.background = '#fff';
+                document.getElementById('analytics').style.color = '#333';
+                darkModeButton.textContent = 'Dark Mode';
+            }
+        });
+    </script>
+</body>
+</html>

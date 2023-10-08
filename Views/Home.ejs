@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        /* Light mode styles */
+        body.light-mode {
+            background-color: #f2f2f2;
+            color: #333;
+        }
+
+        /* Dark mode styles */
+        body.dark-mode {
+            background-color: #333;
+            color: #fff;
+        }
+
+        #container {
+            text-align: center;
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            max-width: 400px;
+            margin: 0 20px; /* Added side margins */
+        }
+
+        /* Move the dark mode styles below the light mode styles */
+        body.dark-mode #container {
+            background-color: #333;
+            color: #fff;
+        }
+
+        /* Add a rule for h1 text color in dark mode */
+        body.dark-mode h1 {
+            color: #fff;
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        p {
+            color: #666;
+            margin-bottom: 20px;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        input[type="text"],
+        button[type="submit"] {
+            width: 100%;
+            max-width: 300px; /* Adjust this value as needed */
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+
+        button[type="submit"] {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        button[type="button"] {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            background-color: #333;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: background-color 0.3s;
+        }
+
+        button[type="button"]:hover {
+            background-color: #666;
+        }
+
+        /* Dark mode button styles */
+        #dark-mode-button {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: #333;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body class="light-mode">
+    <!-- Dark mode toggle button -->
+    <button id="dark-mode-button">Dark Mode</button>
+
+    <div id="container">
+        <h1>Welcome to the Blog Search Page</h1>
+        <p>Search for blogs by entering a keyword:</p>
+        
+        <!-- Search Form -->
+        <form id="search-form">
+            <input type="text" id="search-query" placeholder="Enter your search query">
+            <button type="submit">Search</button>
+        </form>
+
+        <!-- All Blogs Button -->
+        <a href="/api/blog-stats">
+            <button type="button">View All Blogs</button>
+        </a>
+    </div>
+
+    <script>
+        // Get references to the form and input field
+        const searchForm = document.getElementById('search-form');
+        const searchQueryInput = document.getElementById('search-query');
+
+        // Add a form submission event listener
+        searchForm.addEventListener('submit', (event) => {
+            event.preventDefault(); // Prevent the default form submission behavior
+            const query = searchQueryInput.value;
+            
+            if (query === null || query === '') {
+                alert('Please enter a keyword to search.');
+            } else {
+                const searchUrl = `/api/blog-search?query=${encodeURIComponent(query)}`;
+                window.location.href = searchUrl;
+            }
+        });
+
+        // JavaScript code for dark mode toggle
+        const body = document.body;
+        const darkModeButton = document.getElementById('dark-mode-button');
+        let isDarkMode = false;
+
+        darkModeButton.addEventListener('click', () => {
+            isDarkMode = !isDarkMode;
+            if (isDarkMode) {
+                body.classList.add('dark-mode');
+                darkModeButton.textContent = 'Light Mode';
+            } else {
+                body.classList.remove('dark-mode');
+                darkModeButton.textContent = 'Dark Mode';
+            }
+        });
+    </script>
+</body>
+</html>

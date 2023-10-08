@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog Analytics</title>
+    <style>
+        /* Light mode styles */
+        body.light-mode {
+            background-color: #f2f2f2;
+            color: #333;
+        }
+
+        /* Dark mode styles */
+        body.dark-mode {
+            background-color: #333;
+            color: #fff;
+        }
+
+        h1 {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .blog-list {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin: 20px auto;
+            max-width: 1200px;
+        }
+
+        .blog-card {
+            border-radius: 10px;
+            border: 2px solid #ccc;
+            font-size: 20px;
+            margin: 10px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transition: transform 0.2s, background-color 0.2s, color 0.2s;
+        }
+
+        /* Dark mode background color for cards */
+        body.dark-mode .blog-card {
+            background-color: #333;
+        }
+
+        .blog-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .blog-card img {
+            margin-top: 10px;
+            border-radius: 8px;
+            width: 100px;
+            height: 100px;
+        }
+
+        h2 {
+            margin: 10px 0;
+        }
+
+        p {
+            margin: 10px 0;
+        }
+
+        /* Dark mode button */
+        .dark-mode-button {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: #333;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            cursor: pointer;
+            z-index: 1;
+        }
+    </style>
+</head>
+<body class="light-mode">
+    <button class="dark-mode-button" id="dark-mode-toggle">Dark Mode</button>
+    <h1>Blog Analytics</h1>
+    <div class="blog-list">
+        <% results.forEach((blog, i) => { %>
+        <div class="blog-card">
+            <div><%= i + 1 %></div>
+            <div>
+                <h2><%= blog.title %></h2>
+                <p><%= blog.description %></p>
+            </div>
+            <img src="<%= blog.image_url %>" alt="<%= blog.title %>">
+        </div>
+        <% }); %>
+    </div>
+
+    <script>
+        // JavaScript code for dark mode toggle
+        const body = document.body;
+        const darkModeButton = document.getElementById('dark-mode-toggle');
+        let isDarkMode = false;
+
+        darkModeButton.addEventListener('click', () => {
+            isDarkMode = !isDarkMode;
+            if (isDarkMode) {
+                body.classList.add('dark-mode');
+                darkModeButton.textContent = 'Light Mode';
+            } else {
+                body.classList.remove('dark-mode');
+                darkModeButton.textContent = 'Dark Mode';
+            }
+        });
+    </script>
+</body>
+</html>
